@@ -5,7 +5,8 @@ const DATA = [
   {
     id: '0',
     nome: 'Marcos Andrade',
-    numero: '81 988553424'
+    numero: '81 988553424',
+    email: 'mand@gmail.com'
   },
   {
     id: '1',
@@ -25,7 +26,7 @@ export default function ListaContato({ navigation }) {
        <FlatList
         data={DATA}
         renderItem={({item}) => (
-        <Pressable style={styles.container2} onPress={() => navigation.navigate('UpdateContact', {username: item.nome, telefone: item.numero})}>
+        <Pressable style={styles.container2} onPress={() => navigation.navigate('AlteracaoContato', {nome: item.nome, telefone: item.numero, email: item.email})}>
           <Image
             style={styles.tinyLogo}
                   source={{
@@ -35,6 +36,7 @@ export default function ListaContato({ navigation }) {
           <View>
             <Text>{item.nome}</Text>
             <Text>{item.numero}</Text>
+            <Text>{item.email}</Text>
           </View>
         </Pressable>)}
         keyExtractor={item => item.id}
