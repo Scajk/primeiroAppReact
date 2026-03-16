@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, Pressable, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
+import axios from "axios";
 
 export default function ListaContato({ navigation }) {
   const [contatos, setContatos] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/users")
-      .then((res) => res.json())
-      .then((data) => setContatos(data))
-      .catch((err) => console.error(err));
+    const carregarContatos = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/users");
+        setContatos(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    carregarContatos();
   }, []);
 
   return (
@@ -37,10 +44,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderBottomWidth: 1,
     paddingBottom: 5
-  },
-  botao: { marginTop: 10,
-    padding: 10,
-    backgroundColor: "#ccc",
-    alignItems: "center"
   }
 });

@@ -1,25 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import axios from 'axios';
 
 export default function CadastroContato({ navigation }) {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
 
-  const salvarContato = () => {
+  const salvarContato = async () => {
     const novoContato = { 
       name: nome,
       email: email,
       telefone
     };
 
-    fetch("http://localhost:3000/users", {
-      method: "POST",
-      body: JSON.stringify(novoContato)
-    })
-    .then(() => navigation.navigate("ListaContato"))
-    .catch(err => console.log(err));
+    try {
+      await axios.post("http://localhost:3000/users", novoContato);
+      navigation.navigate("ListaContato");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
