@@ -1,0 +1,43 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "",
+      "email": "",
+      "telefone": ""
+    },
+    {
+      "id": "d231",
+      "name": "sergio",
+      "email": "dsadas@gmail.com",
+      "telefone": "12341234"
+    },
+    {
+      "id": "848a",
+      "name": "sergio2",
+      "email": "dsdasdada@gmail.com",
+      "telefone": "1235135"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "title": "Post",
+      "body": "Conteúdo do Post 1",
+      "userId": 1
+    },
+    {
+      "id": "2",
+      "title": "Post",
+      "body": "Conteúdo do Post 2",
+      "userId": 1
+    },
+    {
+      "id": "3",
+      "title": "Post",
+      "body": "Conteúdo do Post 3",
+      "userId": 2
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

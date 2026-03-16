@@ -1,33 +1,54 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 export default function CadastroContato({ navigation }) {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
+
+  const salvarContato = () => {
+    const novoContato = { 
+      name: nome,
+      email: email,
+      telefone
+    };
+
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      body: JSON.stringify(novoContato)
+    })
+    .then(() => navigation.navigate("ListaContato"))
+    .catch(err => console.log(err));
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <View>
-        <Text style={styles.text}>Nome</Text>
-        <TextInput
-          style={styles.input}
-        />
-      </View>
-      <View>
-        <Text style={styles.text}>Email</Text>
-        <TextInput
-          style={styles.input}
-        />
-      </View>
-      <View>
-        <Text style={styles.text}>Telefone</Text>
-        <TextInput
-          style={styles.input}
-        />
-      </View>
+
+      <Text style={styles.text}>Nome</Text>
+      <TextInput
+        style={styles.input}
+        value={nome}
+        onChangeText={setNome}
+      />
+
+      <Text style={styles.text}>Email</Text>
+      <TextInput
+        style={styles.input}
+        value={email}
+        onChangeText={setEmail}
+      />
+
+      <Text style={styles.text}>Telefone</Text>
+      <TextInput
+        style={styles.input}
+        value={telefone}
+        onChangeText={setTelefone}
+      />
+
       <View style={styles.buttonContainer}>
-        <Button
-          title="Salvar"
-        />
+        <Button title="Salvar" onPress={salvarContato} />
       </View>
     </View>
   );
@@ -40,7 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-   input: {
+  input: {
     height: 40,
     width: 180,
     margin: 12,
@@ -53,12 +74,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     gap: 4
   },
-  tinyLogo: {
-    width: 90,
-    height: 90,
-  },
   text: {
     fontWeight: 'bold',
-    paddingLeft: '12px'
+    paddingLeft: 12
   }
 });
